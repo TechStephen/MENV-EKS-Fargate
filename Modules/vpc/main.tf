@@ -57,12 +57,12 @@ resource "aws_route" "app_route" {
   gateway_id = aws_internet_gateway.app_igw.id
 }
 
-resource "aws_route_table_association" "app_rta" {
+resource "aws_route_table_association" "app_rta_subnet_one" {
   subnet_id      = aws_subnet.app_subnet_one.id
   route_table_id = aws_route_table.app_rt.id
 }
 
-resource "aws_route_table_association" "app_rta" {
+resource "aws_route_table_association" "app_rta_subnet_two" {
   subnet_id      = aws_subnet.app_subnet_two.id
   route_table_id = aws_route_table.app_rt.id
 }
