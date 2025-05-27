@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: eks/Environments/QA
+        working-directory: eks/Enviroments/UAT
 
     steps:
       - name: Checkout code
