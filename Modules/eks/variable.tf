@@ -8,11 +8,6 @@ variable "enviroment" {
   type        = string
 }
 
-variable "eks_worker_role_arn" {
-  description = "The name of the EKS cluster"
-  type        = string  
-}
-
 variable "eks_master_role_arn" {
   description = "The ARN of the EKS master role"
   type        = string
@@ -23,7 +18,12 @@ variable "fargate_role_arn" {
   type        = string  
 }
 
-variable "policy_associations" {
-  description = "List of IAM policy attachments for the EKS cluster"
-  type        = list(string)
+variable "cluster_policy_association" {
+  description = "Clust policy association for EKS"
+  type        = string
+}
+
+variable "service_policy_association" {
+  description = "Service policy association for EKS"
+  type        = string
 }

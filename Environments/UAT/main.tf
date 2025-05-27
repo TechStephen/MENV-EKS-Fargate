@@ -31,8 +31,8 @@ module "eks" {
     source = "../../Modules/eks"
     enviroment = "UAT"
     subnet_ids = module.vpc.subnet_ids
-    policy_associations = module.iam.policy_associations
-    eks_worker_role_arn = module.iam.eks_worker_role_arn
+    cluster_policy_association = module.iam.cluster_policy_association
+    service_policy_association = module.iam.service_policy_association
     eks_master_role_arn = module.iam.eks_master_role_arn
     fargate_role_arn = module.iam.fargate_role_arn
 }

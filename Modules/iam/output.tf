@@ -8,8 +8,13 @@ output "fargate_role_arn" {
   value       = aws_iam_role.fargate_profile_role.arn  
 }
 
-output "policy_associations" {
+output "clust_policy_association" {
   description = "List of IAM policy attachments for the EKS cluster"
-  value       = [aws_iam_role_policy_attachment.eks_cluster_policy.id, 
-                 aws_iam_role_policy_attachment.eks_service_policy.id,]
+  value       = aws_iam_role_policy_attachment.eks_cluster_policy 
+}
+
+output "service_policy_association" {
+  description = "List of IAM policy attachments for the EKS service"
+  value       = aws_iam_role_policy_attachment.eks_service_policy
+
 }
