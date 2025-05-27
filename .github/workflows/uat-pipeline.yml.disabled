@@ -1,4 +1,4 @@
-name: Deploys QA Infrastructure
+name: Deploys UAT Infrastructure
 
 on:
   push:
@@ -8,30 +8,41 @@ on:
 jobs:
   deploys: 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: eks/Enviroments/UAT
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      
+      - name: Deploy Namespaces Manifest
+        run: kubectl apply -f Environments/UAT/Namespaces.yaml
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.5.0
 
-      - name: Initializes Terraform QA Enviroment
+      - name: Initializes Terraform UAT Enviroment
         run: terraform init
+        working-directory: Environments/UAT
 
-      - name: Validates Terraform QA Enviroment
+      - name: Validates Terraform UAT Enviroment
         run: terraform validate
+        working-directory: Environments/UAT
       
-      - name: Plans Terraform QA Enviroment
+      - name: Plans Terraform UAT Enviroment
         run: terraform plan 
+        working-directory: Environments/UAT
 
-      - name: Applys Terraform QA Enviroment
+      - name: Applys Terraform UAT Enviroment
         run: terraform apply --auto-approve
+        working-directory: Environments/UAT
 
 
 

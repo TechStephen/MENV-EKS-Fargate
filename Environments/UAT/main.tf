@@ -25,12 +25,12 @@ module "vpc" {
     source = "../../Modules/vpc"
     vpc_cidr_block = "192.0.10.0/16"
     subnet_cidr_blocks = ["192.0.10.0/24", "192.0.10.10/24"]
-    enviroment = "UAT"
+    enviroment = "uat"
 }
 
 module "eks" {
     source = "../../Modules/eks"
-    enviroment = "UAT"
+    enviroment = "uat"
     subnet_ids = module.vpc.subnet_ids
     eks_master_role_arn = module.iam.eks_master_role_arn
     fargate_role_arn = module.iam.fargate_role_arn
