@@ -19,30 +19,36 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      
-      - name: Deploy Namespaces Manifest
-        run: kubectl apply -f Environments/Prod/namespace.yaml
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.5.0
 
-      - name: Initializes Terraform Prod Enviroment
+      - name: Initializes Terraform Prod Environment
         run: terraform init
         working-directory: Environments/Prod
 
-      - name: Validates Terraform Prod Enviroment
+      - name: Validates Terraform Prod Environment
         run: terraform validate
         working-directory: Environments/Prod
-      
-      - name: Plans Terraform Prod Enviroment
-        run: terraform plan 
+
+      - name: Verifys Terraform Prod Enviroment Plan
+        run: terraform plan
         working-directory: Environments/Prod
 
-      - name: Applys Terraform Prod Enviroment
+      - name: Provisions EKS Cluster
+        run: |
+          terraform apply --target=module.iam --auto-approve
+          terraform apply --target=module.eks.aws_eks_cluster.app_cluster --auto-approve
+        working-directory: Environments/Prod
+
+      - name: Update kubeconfig (needed for kubectl commands)
+        run: aws eks update-kubeconfig --name prod-eks-cluster --region us-east-1
+
+      - name: Apply Prod Namespaces 
+        run: kubectl apply -f Environments/Prod/namespace.yaml
+
+      - name: Provisions full Prod Environment
         run: terraform apply --auto-approve
         working-directory: Environments/Prod
-
-
-

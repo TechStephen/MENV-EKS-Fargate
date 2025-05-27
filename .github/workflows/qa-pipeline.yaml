@@ -19,30 +19,36 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      
-      - name: Deploy Namespaces Manifest
-        run: kubectl apply -f Environments/QA/namespace.yaml
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.5.0
 
-      - name: Initializes Terraform QA Enviroment
+      - name: Initializes Terraform QA Environment
         run: terraform init
         working-directory: Environments/QA
 
-      - name: Validates Terraform QA Enviroment
+      - name: Validates Terraform QA Environment
         run: terraform validate
         working-directory: Environments/QA
-      
-      - name: Plans Terraform QA Enviroment
-        run: terraform plan 
+
+      - name: Verifys Terraform QA Enviroment Plan
+        run: terraform plan
         working-directory: Environments/QA
 
-      - name: Applys Terraform QA Enviroment
+      - name: Provisions EKS Cluster
+        run: |
+          terraform apply --target=module.iam --auto-approve
+          terraform apply --target=module.eks.aws_eks_cluster.app_cluster --auto-approve
+        working-directory: Environments/QA
+
+      - name: Update kubeconfig (needed for kubectl commands)
+        run: aws eks update-kubeconfig --name qa-eks-cluster --region us-east-1
+
+      - name: Apply QA Namespaces 
+        run: kubectl apply -f Environments/QA/namespace.yaml
+
+      - name: Provisions full QA Environment
         run: terraform apply --auto-approve
         working-directory: Environments/QA
-
-
-
