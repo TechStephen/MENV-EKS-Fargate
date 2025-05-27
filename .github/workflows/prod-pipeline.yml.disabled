@@ -21,7 +21,7 @@ jobs:
           aws-region: us-east-1
       
       - name: Deploy Namespaces Manifest
-        run: kubectl apply -f Environments/Prod/Namespaces.yaml
+        run: kubectl apply -f Environments/Prod/namespaces.yaml
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
