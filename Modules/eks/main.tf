@@ -11,8 +11,8 @@ resource "aws_eks_cluster" "app_cluster" {
   }
 
   depends_on = [
-    var.cluster_policy_association, 
-    var.service_policy_association,
+    aws_iam_role_policy_attachment.eks_cluster_policy,
+    aws_iam_role_policy_attachment.eks_service_policy
   ]
 }
 

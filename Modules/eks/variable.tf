@@ -17,13 +17,3 @@ variable "fargate_role_arn" {
   description = "The ARN of the EKS Fargate role"
   type        = string  
 }
-
-variable "cluster_policy_association" {
-  description = "Clust policy association for EKS"
-  type        = string
-}
-
-variable "service_policy_association" {
-  description = "Service policy association for EKS"
-  type        = string
-}

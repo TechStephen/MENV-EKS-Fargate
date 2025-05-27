@@ -35,8 +35,8 @@ module "eks" {
     source = "../../Modules/eks"
     enviroment = "Prod"
     subnet_ids = module.vpc.subnet_ids
-    cluster_policy_association = module.iam.cluster_policy_association
-    service_policy_association = module.iam.service_policy_association
     eks_master_role_arn = module.iam.eks_master_role_arn
     fargate_role_arn = module.iam.fargate_role_arn
+
+    depends_on = [ module.iam ]
 }
