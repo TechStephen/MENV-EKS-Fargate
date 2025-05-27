@@ -16,30 +16,6 @@ resource "aws_eks_cluster" "app_cluster" {
   ]
 }
 
-# Create EKS Node Group (Worker Nodes)
-resource "aws_eks_node_group" "app_node_group" {
-  cluster_name    = aws_eks_cluster.app_cluster.name
-  node_group_name = "app-node-group"
-  node_role_arn   = var.eks_worker_role_arn
-  subnet_ids      = var.subnet_ids
-
-  scaling_config {
-    desired_size = 2
-    max_size     = 3
-    min_size     = 1
-  }
-
-  depends_on = [
-    var.policy_associations[2],
-    var.policy_associations[3],
-    var.policy_associations[4]
-  ]
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
 # Fargate Profile for EKS FE
 resource "aws_eks_fargate_profile" "app_fe_fargate_profile" {
   cluster_name = aws_eks_cluster.app_cluster.name
