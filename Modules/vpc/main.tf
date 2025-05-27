@@ -9,13 +9,26 @@ resource "aws_vpc" "app_vpc" {
   }
 }
 
-resource "aws_subnet" "app_subnet" {
+resource "aws_subnet" "app_subnet_one" {
   vpc_id = aws_vpc.app_vpc.id
-  cidr_block = var.subnet_cidr_block
+  cidr_block = var.subnet_cidr_blocks[0]
   map_public_ip_on_launch = var.private
+  availability_zone = "us-east-1a"
   
   tags = {
-    Name = "${var.enviroment}-subnet"
+    Name = "${var.enviroment}-subnet-1a"
+    Environment = "${var.enviroment}"
+  }
+}
+
+resource "aws_subnet" "app_subnet_two" {
+  vpc_id = aws_vpc.app_vpc.id
+  cidr_block = var.subnet_cidr_blocks[1]
+  map_public_ip_on_launch = var.private
+  availability_zone = "us-east-1b"
+  
+  tags = {
+    Name = "${var.enviroment}-subnet-1b"
     Environment = "${var.enviroment}"
   }
 }
@@ -45,7 +58,12 @@ resource "aws_route" "app_route" {
 }
 
 resource "aws_route_table_association" "app_rta" {
-  subnet_id      = aws_subnet.app_subnet.id
+  subnet_id      = aws_subnet.app_subnet_one.id
+  route_table_id = aws_route_table.app_rt.id
+}
+
+resource "aws_route_table_association" "app_rta" {
+  subnet_id      = aws_subnet.app_subnet_two.id
   route_table_id = aws_route_table.app_rt.id
 }
 

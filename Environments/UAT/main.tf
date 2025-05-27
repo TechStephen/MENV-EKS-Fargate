@@ -24,7 +24,7 @@ terraform {
 module "vpc" {
     source = "../../Modules/vpc"
     vpc_cidr_block = "192.0.10.0/16"
-    subnet_cidr_block = "192.0.10.0/24"
+    subnet_cidr_blocks = ["192.0.10.0/24", "192.0.10.10/24"]
     enviroment = "UAT"
 }
 
