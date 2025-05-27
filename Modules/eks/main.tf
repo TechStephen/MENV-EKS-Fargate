@@ -2,7 +2,7 @@
 resource "aws_eks_cluster" "app_cluster" {
   name     = "${var.enviroment}-eks-cluster"
   role_arn = var.eks_master_role_arn
-  version  = "1.21"
+  version  = "1.29" # Keep newest version compatible with app
 
   vpc_config {
     subnet_ids = var.subnet_ids
