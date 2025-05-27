@@ -1,9 +1,9 @@
 name: Deploys QA Infrastructure
 
-on:
-  push:
-    branches:
-      - qa
+#on:
+#  push:
+#    branches:
+#      - main
 
 jobs:
   deploys: 

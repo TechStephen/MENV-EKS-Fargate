@@ -1,16 +1,16 @@
 name: Deploys QA Infrastructure
 
-on:
-  push:
-    branches:
-      - qa
+#on:
+#  push:
+#    branches:
+#      - main
 
 jobs:
   deploys: 
     runs-on: ubuntu-latest
     defaults:
       runs:
-        working-directory: eks/Enviroments/QA
+        working-directory: eks/Enviroments/Prod
 
     steps:
       - name: Checkout code

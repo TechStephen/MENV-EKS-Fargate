@@ -28,7 +28,6 @@ module "vpc" {
     source = "../../Modules/vpc"
     vpc_cidr_block = "192.0.20.0/16"
     subnet_cidr_block = "192.0.20.0/24"
-    private = true
     enviroment = "Prod"
 }
 
