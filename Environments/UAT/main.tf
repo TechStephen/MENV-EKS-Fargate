@@ -3,13 +3,13 @@ provider "aws" {
 }
 
 terraform {
-    backend "UAT" {
-       bucket         = "uat-eks-app-state-bucket"
-       key            = "uat/terraform.tfstate"
-       region         = "us-east-1"
-       use_lockfile = true
-       encrypt = true
-    }
+    # backend "UAT" {
+    #    bucket         = "uat-eks-app-state-bucket"
+    #    key            = "uat/terraform.tfstate"
+    #    region         = "us-east-1"
+    #    use_lockfile = true
+    #    encrypt = true
+    # }
 
     required_providers {
         aws = {

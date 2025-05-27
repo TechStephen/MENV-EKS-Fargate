@@ -3,13 +3,13 @@ provider "aws" {
 }
 
 terraform {
-    backend "s3" {
-       bucket         = "prod-eks-app-state-bucket"
-       key            = "prod/terraform.tfstate"
-       region         = "us-east-1"
-       use_lockfile = true
-       encrypt = true
-    }
+    # backend "s3" {
+    #    bucket         = "prod-eks-app-state-bucket"
+    #    key            = "prod/terraform.tfstate"
+    #    region         = "us-east-1"
+    #    use_lockfile = true
+    #    encrypt = true
+    # }
 
     required_providers {
         aws = {
