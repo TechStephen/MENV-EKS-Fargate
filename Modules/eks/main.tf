@@ -48,7 +48,7 @@ resource "aws_eks_fargate_profile" "app_fe_fargate_profile" {
   subnet_ids = var.subnet_ids
 
   selector {
-    namespace = "eks-fargate-fe"
+    namespace = "${var.enviroment}-eks-fargate-fe"
   }
 }
 
@@ -60,7 +60,7 @@ resource "aws_eks_fargate_profile" "app_ms_fargate_profile" {
   subnet_ids = var.subnet_ids
 
   selector {
-    namespace = "eks-fargate-ms"
+    namespace = "${var.enviroment}-eks-fargate-ms"
   }
 }
 
