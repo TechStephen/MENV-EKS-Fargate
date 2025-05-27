@@ -8,13 +8,10 @@ on:
 jobs:
   deploys: 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: /Environments/QA
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -23,15 +20,19 @@ jobs:
 
       - name: Initializes Terraform QA Enviroment
         run: terraform init
+        working-directory: /Enviroments/QA
 
       - name: Validates Terraform QA Enviroment
         run: terraform validate
+        working-directory: /Enviroments/QA
       
       - name: Plans Terraform QA Enviroment
         run: terraform plan 
+        working-directory: /Enviroments/QA
 
       - name: Applys Terraform QA Enviroment
         run: terraform apply --auto-approve
+        working-directory: /Enviroments/QA
 
 
 
