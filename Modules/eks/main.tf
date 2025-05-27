@@ -9,11 +9,6 @@ resource "aws_eks_cluster" "app_cluster" {
     endpoint_private_access = true
     endpoint_public_access  = true
   }
-
-  depends_on = [
-    aws_iam_role_policy_attachment.eks_cluster_policy,
-    aws_iam_role_policy_attachment.eks_service_policy
-  ]
 }
 
 # Fargate Profile for EKS FE
