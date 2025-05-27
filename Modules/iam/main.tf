@@ -60,7 +60,7 @@ resource "aws_iam_role_policy_attachment" "ecr_read_only" {
 }
 
 # -- IAM Role for Fargate Profile ---
-resource "aws_iam_role" "example" {
+resource "aws_iam_role" "fargate_profile_role" {
   name = "eks-fargate-profile-example"
 
   assume_role_policy = jsonencode({
