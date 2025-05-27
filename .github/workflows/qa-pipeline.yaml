@@ -34,12 +34,13 @@ jobs:
         working-directory: Environments/QA
 
       - name: Verifys Terraform QA Enviroment Plan
-        run: terraform plan
+        run: terraform plan -out=tfplan
         working-directory: Environments/QA
 
       - name: Provisions EKS Cluster
         run: |
           terraform apply --target=module.iam --auto-approve
+          terraform apply --target=module.vpc --auto-approve
           terraform apply --target=module.eks.aws_eks_cluster.app_cluster --auto-approve
         working-directory: Environments/QA
 
@@ -50,5 +51,5 @@ jobs:
         run: kubectl apply -f Environments/QA/namespace.yaml
 
       - name: Provisions full QA Environment
-        run: terraform apply --auto-approve
+        run: terraform apply tfplan --auto-approve
         working-directory: Environments/QA
