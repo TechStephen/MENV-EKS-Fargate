@@ -3,12 +3,12 @@ provider "aws" {
 }
 
 terraform {
-    #backend "s3" {
-    #    bucket         = "my-terraform-state-bucket"
-    #    key            = "qa/terraform.tfstate"
-    #    region         = "us-east-1"
-    #    dynamodb_table = "terraform-locks"
-    #}
+    backend "s3" {
+       bucket         = "prod-eks-app-state-bucket"
+       key            = "prod/terraform.tfstate"
+       region         = "us-east-1"
+       use_lockfile = true
+    }
 
     required_providers {
         aws = {
