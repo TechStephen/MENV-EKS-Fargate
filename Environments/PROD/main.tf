@@ -28,7 +28,7 @@ module "iam" {
 module "vpc" {
     source = "../../Modules/vpc"
     vpc_cidr_block = "192.0.20.0/16"
-    subnet_cidr_blocks = ["192.0.20.0/24", "192.0.20.10/24"]
+    subnet_cidr_blocks = ["192.0.20.0/24", "192.0.20.10/24", "192.0.20.20/24", "192.0.20.30/24"]
     enviroment = "prod"
 }
 
