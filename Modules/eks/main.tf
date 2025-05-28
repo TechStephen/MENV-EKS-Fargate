@@ -16,7 +16,7 @@ resource "aws_eks_fargate_profile" "app_fe_fargate_profile" {
   cluster_name = aws_eks_cluster.app_cluster.name
   fargate_profile_name = "${var.enviroment}-fargate-profile-fe"
   pod_execution_role_arn = var.fargate_role_arn
-  subnet_ids = [subnet_ids[0], subnet_ids[1]] # Use first two subnets for FE
+  subnet_ids = [var.subnet_ids[0], var.subnet_ids[1]] # Use first two subnets for FE
 
   selector {
     namespace = "${var.enviroment}-eks-fargate-fe"
@@ -30,7 +30,7 @@ resource "aws_eks_fargate_profile" "app_ms_fargate_profile" {
   cluster_name = aws_eks_cluster.app_cluster.name
   fargate_profile_name = "${var.enviroment}-fargate-profile-ms"
   pod_execution_role_arn = var.fargate_role_arn
-  subnet_ids = [subnet_ids[0], subnet_ids[1]]
+  subnet_ids = [var.subnet_ids[0], var.subnet_ids[1]]
 
   selector {
     namespace = "${var.enviroment}-eks-fargate-ms"
