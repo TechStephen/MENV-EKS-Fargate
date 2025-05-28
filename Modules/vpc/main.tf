@@ -98,7 +98,7 @@ resource "aws_nat_gateway" "app_nat_gateway_two" {
   subnet_id     = aws_subnet.nat_subnet_two.id
   
   tags = {
-    Name = "${var.enviroment}-nat-gateway-1a"
+    Name = "${var.enviroment}-nat-gateway-1b"
     Environment = "${var.enviroment}"
   }
 }
