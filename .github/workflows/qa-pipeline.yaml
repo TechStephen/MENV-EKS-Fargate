@@ -37,7 +37,7 @@ jobs:
         run: terraform plan
         working-directory: Environments/QA
 
-      - name: Provisions EKS Cluster
+      - name: Provisions EKS Cluster # Need Cluster to deploy namespaces
         run: |
           terraform apply --target=module.iam --auto-approve
           terraform apply --target=module.vpc --auto-approve
@@ -47,7 +47,7 @@ jobs:
       - name: Update kubeconfig (needed for kubectl commands)
         run: aws eks update-kubeconfig --name qa-eks-cluster --region us-east-1
 
-      - name: Apply QA Namespaces 
+      - name: Apply QA Namespaces # Needed for Fargate
         run: kubectl apply -f Environments/QA/namespace.yaml
 
       - name: Provisions full QA Environment
