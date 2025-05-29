@@ -26,7 +26,7 @@ jobs:
           terraform_version: 1.12.1
 
       - name: Initializes Terraform QA Environment
-        run: terraform destroy --auto-approve
+        run: terraform init && terraform destroy --auto-approve
         working-directory: Environments/QA
 
       # - name: Validates Terraform QA Environment
