@@ -47,7 +47,7 @@ jobs:
       - name: Update kubeconfig (needed for kubectl commands)
         run: aws eks update-kubeconfig --name qa-eks-cluster --region us-east-1
 
-      - name: Apply QA Namespaces # Needed for Fargate
+      - name: Apply QA Namespaces # Needed for Fargate Profile Provisioning
         run: kubectl apply -f Environments/QA/namespace.yaml
 
       - name: Provisions full QA Environment

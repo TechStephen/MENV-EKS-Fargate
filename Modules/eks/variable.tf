@@ -17,3 +17,8 @@ variable "fargate_role_arn" {
   description = "The ARN of the EKS Fargate role"
   type        = string  
 }
+
+variable "alb_worker_role_arn" {
+  description = "The ARN of the ALB worker role"
+  type        = string
+}
