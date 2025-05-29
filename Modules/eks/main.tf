@@ -2,7 +2,7 @@
 resource "aws_eks_cluster" "app_cluster" {
   name     = "${var.enviroment}-eks-cluster"
   role_arn = var.eks_master_role_arn
-  version  = "1.32" # Keep newest version compatible with app
+  version  = "1.33" # Keep newest version compatible with app
 
   vpc_config {
     subnet_ids = [var.subnet_ids[0], var.subnet_ids[1]] 
@@ -25,7 +25,7 @@ resource "aws_eks_node_group" "app_worker_nodes" {
   }
 
   instance_types = ["t2.small"] 
-  ami_type        = "AL2_x86_64" # Use Amazon Linux 2 AMI for compatibility with ALB Ingress Controller
+  ami_type        = "ami-014f71cc7221992de" # Use Amazon Linux 2 AMI for compatibility with ALB Ingress Controller
   capacity_type   = "ON_DEMAND" # Use On-Demand instances for ALB worker nodes
   tags = {
     Name        = "${var.enviroment}-alb-node-group"
