@@ -25,7 +25,7 @@ resource "aws_eks_node_group" "app_worker_nodes" {
   }
 
   instance_types = ["t2.small"] 
-  ami_type        = "AL2_x86_64" # Use Amazon Linux 2 AMI for compatibility with ALB Ingress Controller
+  ami_type        = "AL2023_x86_64_STANDARD" # AMI for compatibility with ALB Ingress Controller
   capacity_type   = "ON_DEMAND" # Use On-Demand instances for ALB worker nodes
   tags = {
     Name        = "${var.enviroment}-alb-node-group"
