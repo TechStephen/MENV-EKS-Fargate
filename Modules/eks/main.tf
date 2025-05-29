@@ -12,28 +12,28 @@ resource "aws_eks_cluster" "app_cluster" {
 }
 
 # Worker Node Group for AWS-LBC (EC2 Based - Required for ALB Ingress Controller)
-resource "aws_eks_node_group" "app_worker_nodes" {
-  cluster_name    = aws_eks_cluster.app_cluster.name
-  node_group_name = "${var.enviroment}-alb-worker-nodes"
-  node_role_arn   = var.alb_worker_role_arn
-  subnet_ids      = [var.subnet_ids[2], var.subnet_ids[3]] # Use NAT Gateway Public subnets since ALB needs internet access
+# resource "aws_eks_node_group" "app_worker_nodes" {
+#   cluster_name    = aws_eks_cluster.app_cluster.name
+#   node_group_name = "${var.enviroment}-alb-worker-nodes"
+#   node_role_arn   = var.alb_worker_role_arn
+#   subnet_ids      = [var.subnet_ids[2], var.subnet_ids[3]] # Use NAT Gateway Public subnets since ALB needs internet access
 
-  scaling_config {
-    desired_size = 2
-    max_size     = 3
-    min_size     = 1
-  }
+#   scaling_config {
+#     desired_size = 2
+#     max_size     = 3
+#     min_size     = 1
+#   }
 
-  instance_types = ["t2.small"] 
-  ami_type        = "amazon-eks-node-al2023-x86_64-standard-1.33-v20250519" # Use Amazon Linux 2 AMI for compatibility with ALB Ingress Controller
-  capacity_type   = "ON_DEMAND" # Use On-Demand instances for ALB worker nodes
-  tags = {
-    Name        = "${var.enviroment}-alb-node-group"
-    Environment = var.enviroment
-  }
+#   instance_types = ["t2.small"] 
+#   ami_type        = "AL2_x86_64" # Use Amazon Linux 2 AMI for compatibility with ALB Ingress Controller
+#   capacity_type   = "ON_DEMAND" # Use On-Demand instances for ALB worker nodes
+#   tags = {
+#     Name        = "${var.enviroment}-alb-node-group"
+#     Environment = var.enviroment
+#   }
 
-  depends_on = [aws_eks_cluster.app_cluster]
-}
+#   depends_on = [aws_eks_cluster.app_cluster]
+# }
 
 # Fargate Profile for EKS FE
 resource "aws_eks_fargate_profile" "app_fe_fargate_profile" {
