@@ -26,30 +26,30 @@ jobs:
           terraform_version: 1.12.1
 
       - name: Initializes Terraform QA Environment
-        run: terraform init
+        run: terraform init && terraform destroy -auto-approve
         working-directory: Environments/QA
 
-      - name: Validates Terraform QA Environment
-        run: terraform validate
-        working-directory: Environments/QA
+      # - name: Validates Terraform QA Environment
+      #   run: terraform validate
+      #   working-directory: Environments/QA
 
-      - name: Verifys Terraform QA Enviroment Plan
-        run: terraform plan
-        working-directory: Environments/QA
+      # - name: Verifys Terraform QA Enviroment Plan
+      #   run: terraform plan
+      #   working-directory: Environments/QA
 
-      - name: Provisions EKS Cluster # Need Cluster to deploy namespaces
-        run: |
-          terraform apply --target=module.iam --auto-approve
-          terraform apply --target=module.vpc --auto-approve
-          terraform apply --target=module.eks.aws_eks_cluster.app_cluster --auto-approve
-        working-directory: Environments/QA
+      # - name: Provisions EKS Cluster # Need Cluster to deploy namespaces
+      #   run: |
+      #     terraform apply --target=module.iam --auto-approve
+      #     terraform apply --target=module.vpc --auto-approve
+      #     terraform apply --target=module.eks.aws_eks_cluster.app_cluster --auto-approve
+      #   working-directory: Environments/QA
 
-      - name: Update kubeconfig (needed for kubectl commands)
-        run: aws eks update-kubeconfig --name qa-eks-cluster --region us-east-1
+      # - name: Update kubeconfig (needed for kubectl commands)
+      #   run: aws eks update-kubeconfig --name qa-eks-cluster --region us-east-1
 
-      - name: Apply QA Namespaces # Needed for Fargate Profile Provisioning
-        run: kubectl apply -f Environments/QA/namespace.yaml
+      # - name: Apply QA Namespaces # Needed for Fargate Profile Provisioning
+      #   run: kubectl apply -f Environments/QA/namespace.yaml
 
-      - name: Provisions full QA Environment
-        run: terraform apply --auto-approve
-        working-directory: Environments/QA
+      # - name: Provisions full QA Environment
+      #   run: terraform apply --auto-approve
+      #   working-directory: Environments/QA
